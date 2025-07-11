@@ -1,8 +1,8 @@
-# WOWY E-commerce Platform 🛍️
+# Freshora E-commerce Platform 🛍️
 
 A full-featured e-commerce platform built with Django, featuring a robust admin panel and modern user interface.
 
-WOWY is a modern, full-featured e-commerce platform built with Django 4.x, designed to provide a seamless shopping experience for both customers and administrators. This comprehensive solution offers robust product management with multi-image support, real-time cart operations, and wishlist functionality, alongside a powerful admin dashboard for detailed analytics and reporting. The platform features a clean, responsive design that works flawlessly across all devices, while incorporating essential e-commerce capabilities like PDF invoice generation, dynamic category management, and detailed sales tracking. With its focus on user experience and administrative efficiency, WOWY provides everything needed to run a successful online store, from comprehensive product catalogs to advanced customer engagement tools, all backed by a solid Django foundation.
+Freshora is a modern, full-featured e-commerce platform built with Django 5.0.8, designed to provide a seamless shopping experience for both customers and administrators. This comprehensive solution offers robust product management with multi-image support, real-time cart operations, and wishlist functionality, alongside a powerful admin dashboard for detailed analytics and reporting. The platform features a clean, responsive design that works flawlessly across all devices, while incorporating essential e-commerce capabilities like PDF invoice generation, dynamic category management, and detailed sales tracking. With its focus on user experience and administrative efficiency, WOWY provides everything needed to run a successful online store, from comprehensive product catalogs to advanced customer engagement tools, all backed by a solid Django foundation.
 
 Live: [Demo](http://wowy.manjurulhoque.com/)
 
@@ -25,6 +25,10 @@ Live: [Demo](http://wowy.manjurulhoque.com/)
 
 ![Admin categories page](screenshots/categories.png)
 *Admin categories page*
+
+![About Page](screenshots/about.png)  
+*About page presenting Freshora’s mission, features, and vision*
+
 
 ## 🌟 Features
 
@@ -156,8 +160,8 @@ The system supports product variants with different sizes and colors. This allow
 ## 🛠️ Tech Stack
 
 ### Backend
-- Python 3.x
-- Django 4.x
+- Python 3.11
+- Django 5.0.8
 - Django REST Framework
 - PostgreSQL/Sqlite
 
@@ -188,8 +192,8 @@ The system supports product variants with different sizes and colors. This allow
 
 1. Clone the repository
 ```bash
-git clone https://github.com/manjurulhoque/wowy.git wowy
-cd wowy
+git clone https://github.com/mohammadgholampour/Freshora.git Freshora
+cd Freshora
 ```
 
 2. Create and activate virtual environment
@@ -318,7 +322,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email manzurulhoquerumi@gmail.com
+For support, email m.gholampour2002@gmail.com
 
 ## 🔄 Project Status
 
@@ -337,8 +341,8 @@ Project is: _in development_
 ### Basic Setup
 1. Clone the repository
 ```bash
-git clone https://github.com/manjurulhoque/wowy.git gambo
-cd gambo
+git clone https://github.com/mohammadgholampour/Freshora.git Freshora
+cd Freshora
 ```
 
 2. Create and activate virtual environment
@@ -378,7 +382,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Visit http://localhost:8000/admin to access the admin panel.
+Visit http://localhost:8001/super-admin/ to access the admin panel.
 
 ### Stripe Integration Setup
 
@@ -425,7 +429,3 @@ DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 
 ### Deployment
 Using Docker to deploy
-
----
-⌨️ with ❤️ by [Manjurul Hoque Rumi](https://github.com/manjurulhoque)#   F r e s h o r a  
- 
