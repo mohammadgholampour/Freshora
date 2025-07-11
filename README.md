@@ -233,7 +233,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Visit http://localhost:8000/admin to access the admin panel.
+Visit  http://localhost:8001/super-admin/  to access the admin panel.
 
 ## 🔧 Configuration
 
