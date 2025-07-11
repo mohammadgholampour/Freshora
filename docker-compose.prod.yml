@@ -10,8 +10,8 @@ services:
       - 8000
     volumes:
       - static_volume:/usr/src/app/staticfiles
-      - media_volume:/usr/src/app/mediafiles
-    #    env_file: .env
+      - media_volume:/usr/src/app/media
+      - ./data:/usr/src/app/data   # اینجا پوشه data رو mount کن
     command: gunicorn gambo.wsgi:application --bind 0.0.0.0:8000
 
   nginx:
@@ -21,7 +21,7 @@ services:
       - "8001:80"
     volumes:
       - static_volume:/usr/src/app/staticfiles
-      - media_volume:/usr/src/app/mediafiles
+      - media_volume:/usr/src/app/media
     depends_on:
       - web
 

@@ -9,6 +9,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8001",
+    "http://127.0.0.1:8001"
+]
+USE_X_FORWARDED_HOST = True
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -63,7 +73,7 @@ WSGI_APPLICATION = "gambo.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "data" / "db.sqlite3",
     }
 }
 

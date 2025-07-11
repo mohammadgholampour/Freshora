@@ -3,12 +3,22 @@ from django.utils import timezone
 
 CURRENCY_CHOICES = [
     ("BDT", "Bangladeshi Taka"),
+    ("USD", "US Dollar"),
+    ("EUR", "Euro"),
+    ("GBP", "British Pound"),
+    ("INR", "Indian Rupee"),
+    ("CNY", "Chinese Yuan"),
+    ("JPY", "Japanese Yen"),
+    ("AED", "UAE Dirham"),
+    ("CAD", "Canadian Dollar"),
+    ("AUD", "Australian Dollar"),
 ]
+
 
 
 class SiteSettings(models.Model):
     # General Settings
-    site_name = models.CharField(max_length=100, default="WOWY")
+    site_name = models.CharField(max_length=100, default="Freshora")
     site_logo = models.ImageField(upload_to="site/", null=True, blank=True)
     favicon = models.ImageField(upload_to="site/", null=True, blank=True)
     contact_email = models.EmailField(null=True, blank=True)

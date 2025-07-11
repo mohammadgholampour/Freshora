@@ -427,4 +427,5 @@ DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 Using Docker to deploy
 
 ---
-⌨️ with ❤️ by [Manjurul Hoque Rumi](https://github.com/manjurulhoque)
+⌨️ with ❤️ by [Manjurul Hoque Rumi](https://github.com/manjurulhoque)#   F r e s h o r a  
+ 

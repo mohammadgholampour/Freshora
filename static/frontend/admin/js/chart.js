@@ -8,7 +8,7 @@ Highcharts.chart('earningGraph', {
         }
     },
     title: {
-		text: '2020 Income & Order Summary'
+		text: '2025 Income & Order Summary'
 	},
 	subtitle: {
 		text: 'Show monthly wise income & order graph.'

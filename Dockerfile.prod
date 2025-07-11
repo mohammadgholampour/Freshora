@@ -5,33 +5,40 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Copy only requirements first to leverage Docker cache
+# اضافه کردن community repository
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+
+# کپی فایل requirements
 COPY requirements.txt .
 
-# Install system dependencies and Python packages in a single layer
-RUN apk update \
-    && apk add --no-cache \
-        nano \
-        gobject-introspection-dev \
-        pango-dev \
-        cairo-dev \
-        libffi-dev \
-        libmagic \
-        libxml2-dev \
-        libxslt-dev \
-    && python -m pip install --upgrade pip \
-    && pip install -r requirements.txt
+# نصب پیش‌نیازهای سیستمی و کتابخانه‌ها
+RUN apk update && apk add --no-cache \
+    bash \
+    build-base \
+    python3-dev \
+    py3-pip \
+    py3-cairo \
+    cairo-dev \
+    pango-dev \
+    jpeg-dev \
+    zlib-dev \
+    freetype-dev \
+    libffi-dev \
+    libxml2-dev \
+    libxslt-dev \
+    file-dev \
+    && pip3 install --upgrade pip \
+    && pip3 install -r requirements.txt
 
-# Copy the rest of the application
+# کپی پروژه
 COPY . .
 
+# تنظیم محیط و فایل‌ها
 RUN cp .env.example .env
 
 ENV APP_HOME=/usr/src/app
-# No need to create directories twice
 RUN mkdir -p $APP_HOME/staticfiles && mkdir -p $APP_HOME/mediafiles
 
-RUN echo "Running from production dockerfile"
-
-# Collect static files
+# کلکت استاتیک
 RUN python manage.py collectstatic --noinput
