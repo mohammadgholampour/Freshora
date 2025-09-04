@@ -1,4 +1,5 @@
 #!/bin/bash
+# deploy_build.sh
 
 # Activate virtual environment
 source "$VIRTUAL_ENV/bin/activate"
@@ -15,6 +16,3 @@ python manage.py shell -c "from core.models import SiteSettings; SiteSettings.ob
 
 # Collect static files
 python manage.py collectstatic --noinput
-
-# Start Gunicorn
-gunicorn gambo.wsgi:application --bind 0.0.0.0:$PORT
