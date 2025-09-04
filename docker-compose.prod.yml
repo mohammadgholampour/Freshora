@@ -1,22 +1,36 @@
 version: '3'
 
 services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: freshora
+      POSTGRES_USER: freshora
+      POSTGRES_PASSWORD: password123
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
   web:
-    restart: always
     build:
       context: .
       dockerfile: Dockerfile.prod
     expose:
-      - 8000
+      - "8000"
     volumes:
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/media
-      - ./data:/usr/src/app/data   # اینجا پوشه data رو mount کن
-    command: gunicorn gambo.wsgi:application --bind 0.0.0.0:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn gambo.wsgi:application --bind 0.0.0.0:8000"
 
   nginx:
-    restart: always
     build: ./deployment/nginx/
+    restart: always
     ports:
       - "8001:80"
     volumes:
@@ -28,3 +42,4 @@ services:
 volumes:
   static_volume:
   media_volume:
+  db_data:

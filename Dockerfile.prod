@@ -1,44 +1,48 @@
+# Base image
 FROM python:3.11-alpine
 
 WORKDIR /usr/src/app
 
+# جلوگیری از ایجاد فایل pyc
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# اضافه کردن community repository
+# اضافه کردن مخازن edge برای نصب پکیج‌ها
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 
-# کپی فایل requirements
-COPY requirements.txt .
-
-# نصب پیش‌نیازهای سیستمی و کتابخانه‌ها
+# نصب پیش‌نیازهای سیستم و pip
 RUN apk update && apk add --no-cache \
     bash \
     build-base \
     python3-dev \
     py3-pip \
-    py3-cairo \
-    cairo-dev \
-    pango-dev \
     jpeg-dev \
     zlib-dev \
     freetype-dev \
     libffi-dev \
     libxml2-dev \
     libxslt-dev \
-    file-dev \
-    && pip3 install --upgrade pip \
-    && pip3 install -r requirements.txt
+    cairo-dev \
+    pango-dev \
+    file-dev
 
-# کپی پروژه
+# نصب requirements
+COPY requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# کپی کل پروژه
 COPY . .
 
-# تنظیم محیط و فایل‌ها
-RUN cp .env.example .env
+# ایجاد دایرکتوری‌ها
+RUN mkdir -p /usr/src/app/staticfiles /usr/src/app/mediafiles
 
-ENV APP_HOME=/usr/src/app
-RUN mkdir -p $APP_HOME/staticfiles && mkdir -p $APP_HOME/mediafiles
+# Load environment variables
+COPY .env .env
 
 # کلکت استاتیک
 RUN python manage.py collectstatic --noinput
+
+# Command to run
+CMD ["gunicorn", "gambo.wsgi:application", "--bind", "0.0.0.0:8000"]
