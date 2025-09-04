@@ -1,17 +1,21 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url  
 
 # --- Paths ---
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / ".env")  # Load .env file
+load_dotenv(BASE_DIR / ".env")  # Load .env file locally
 
 # --- Security ---
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-fallback-key")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
-CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "http://localhost:8001,http://127.0.0.1:8001").split(",")
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    "CSRF_TRUSTED_ORIGINS",
+    "http://localhost:8001,http://127.0.0.1:8001"
+).split(",")
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -67,16 +71,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "gambo.wsgi.application"
 
-# --- Database ---
+# --- Database (PostgreSQL on Render) ---
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DATABASE_NAME", "freshora"),
-        "USER": os.environ.get("DATABASE_USER", "freshora"),
-        "PASSWORD": os.environ.get("DATABASE_PASSWORD", "password123"),
-        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
-        "PORT": int(os.environ.get("DATABASE_PORT", 5432)),
-    }
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL")  # Render provides this automatically
+    )
 }
 
 # --- Password Validation ---
