@@ -10,12 +10,11 @@ load_dotenv(BASE_DIR / ".env")  # Load .env file locally
 # --- Security ---
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-fallback-key")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
-CSRF_TRUSTED_ORIGINS = os.environ.get(
-    "CSRF_TRUSTED_ORIGINS",
-    "http://localhost:8001,http://127.0.0.1:8001"
-).split(",")
+# Render settings
+ALLOWED_HOSTS = ["freshora-ptx8.onrender.com", "localhost", "127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://freshora-ptx8.onrender.com"]
+
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -72,16 +71,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "gambo.wsgi.application"
 
 # --- Database (PostgreSQL on Render) ---
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.environ.get("DATABASE_NAME"),
-#         "USER": os.environ.get("DATABASE_USER"),
-#         "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
-#         "HOST": os.environ.get("DATABASE_HOST"),
-#         "PORT": os.environ.get("DATABASE_PORT", 5432),
-#     }
-# }
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 if DATABASE_URL:
@@ -96,6 +85,7 @@ else:
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+
 # --- Password Validation ---
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
