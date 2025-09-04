@@ -1,13 +1,19 @@
 #!/bin/bash
 
-# فعال کردن virtualenv
-source .venv/bin/activate
+# Activate virtual environment
+source "$VIRTUAL_ENV/bin/activate"
 
-# ست کردن environment variables
-export $(grep -v '^#' .env | xargs)
+# Install requirements
+pip install -r requirements.txt
 
-# اجرای migrations
+# Run migrations
 python manage.py migrate --noinput
 
-# استارت Gunicorn
+# Create default SiteSettings
+python manage.py shell -c "from core.models import SiteSettings; SiteSettings.objects.get_or_create(pk=1)"
+
+# Collect static files
+python manage.py collectstatic --noinput
+
+# Start Gunicorn
 gunicorn gambo.wsgi:application --bind 0.0.0.0:$PORT
