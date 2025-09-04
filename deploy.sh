@@ -6,10 +6,11 @@ source "$VIRTUAL_ENV/bin/activate"
 # Install requirements
 pip install -r requirements.txt
 
-# Run migrations
+# Make migrations
+python manage.py makemigrations
 python manage.py migrate --noinput
 
-# Create default SiteSettings
+# Create default SiteSettings AFTER migrations
 python manage.py shell -c "from core.models import SiteSettings; SiteSettings.objects.get_or_create(pk=1)"
 
 # Collect static files
