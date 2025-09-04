@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# نصب نیازمندی‌ها
-pip install -r requirements.txt
+# فعال کردن virtualenv
+source .venv/bin/activate
 
-# ساخت مایگریشن‌ها و اجرای آنها
-python manage.py makemigrations
-python manage.py migrate
+# ست کردن environment variables
+export $(grep -v '^#' .env | xargs)
 
-# ساخت SiteSettings پیش‌فرض
-python manage.py shell -c "from core.models import SiteSettings; SiteSettings.objects.get_or_create(pk=1)"
+# اجرای migrations
+python manage.py migrate --noinput
 
-# جمع‌آوری فایل‌های استاتیک
-python manage.py collectstatic --noinput
+# استارت Gunicorn
+gunicorn gambo.wsgi:application --bind 0.0.0.0:$PORT
