@@ -16,3 +16,4 @@ stripe==4.2.0
 urllib3==2.2.3
 python-dotenv
 psycopg2-binary
+dj-database-url==1.0.0
