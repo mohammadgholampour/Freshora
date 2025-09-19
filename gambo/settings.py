@@ -9,6 +9,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+# CSRF settings for Docker deployment
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8001",
+    "http://127.0.0.1:8001",
+    "http://0.0.0.0:8001",
+]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
